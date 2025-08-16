@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider     = "mongodb"
+  url          = "mongodb+srv://cms:cms@cluster0.4cpbjwm.mongodb.net/geekcms"
+  relationMode = "prisma"
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@map("sessions")
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  username      String    @unique @default(nanoid())
+  image         String?
+  role          String    @default("USER")
+  accounts      Account[]
+  sessions      Session[]
+  posts         Post[]
+  createdAt     DateTime  @default(now())
+}
+
+model Post {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  slug      String     @unique
+  content   String?
+  thumbnail String?
+  desc      String?
+  keywords  String[]
+  excerpt   String?
+  authorId  String     @db.ObjectId
+  author    User       @relation(fields: [authorId], references: [id])
+  catslug   String?
+  category  Category?  @relation(fields: [catslug], references: [slug])
+  createdAt DateTime   @default(now())
+  status    PostStatus @default(DRAFT)
+}
+
+model Category {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  slug  String @unique
+  posts Post[]
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+  DELETED
+}
+
+model VerificationRequest {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime @default(now())
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
