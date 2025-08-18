@@ -1,0 +1,32 @@
+import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
+
+export async function GET(request, { params }) {
+    const { slug } = params;
+    const post = await prisma.post.findMany({
+        where: {
+            slug: slug,
+            status: 'PUBLISHED'
+        },
+        include: {
+            author: {
+                select: {
+                    name: true,
+                    image: true
+                }
+            }
+        }
+    })
+
+    if(!post) {
+        return NextResponse.json({message: "Post Not Found"}, {status: 404})
+    }
+
+    // console.log(post, " post from prisma");
+    return NextResponse.json(post, {
+        status: 200,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}

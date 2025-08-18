@@ -1,0 +1,27 @@
+.blogContent {
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.blogContent h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 6px 0 6px 8px;
+  margin: 15px 0 8px;
+  border-left: 3px solid var(--primary); /* adds a nice accent */
+}
+
+.blogContent p {
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.blogContent ul {
+  list-style-type: disc;
+  margin: 0 0 1rem 1.5rem; /* spacing & indentation */
+}
+
+.blogContent li {
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+}

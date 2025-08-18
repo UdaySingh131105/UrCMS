@@ -25,7 +25,7 @@ const items = [
   },
   {
     title: "Drafts",
-    url: "/drafts",
+    url: "/draft",
     icon: Pencil,
   },
   {

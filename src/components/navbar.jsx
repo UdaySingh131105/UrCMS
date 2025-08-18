@@ -46,7 +46,7 @@ const ModalComponet = ({user}) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <Image className="rounded-full border border-[greenyellow]" src={user.image} width={40} height={40}></Image>
+                <Image className="rounded-full border border-[greenyellow]" alt="Profile" src={user.image} width={40} height={40}></Image>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownMenuLabel>Hi, {user.name}!</DropdownMenuLabel>
