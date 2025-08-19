@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
     const { slug } = params;
-    const post = await prisma.post.findMany({
+    const post = await prisma.post.findUnique({
         where: {
             slug: slug,
             status: 'PUBLISHED'
@@ -17,6 +17,7 @@ export async function GET(request, { params }) {
             }
         }
     })
+    
 
     if(!post) {
         return NextResponse.json({message: "Post Not Found"}, {status: 404})

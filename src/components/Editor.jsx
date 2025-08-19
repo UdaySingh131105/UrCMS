@@ -6,11 +6,24 @@ import ImageUpload from "./ImageUpload";
 import dynamic from "next/dynamic";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import { z, ZodError } from 'zod'
 
-export default function Editor({onSave, initialData}) {
+const schema = z.object({
+    title: z.string().min(1, { message: "Title must not be empty" }).min(10, { message: "Title must contain at least 10 characters" }),
+    excerpt: z.string().min(10, { message: 'Please add some details in the excerpt' }),
+    category: z.string().min(1, {message: 'please add a category'}),
+    keywords: z.string().min(2, {message: "Please add keywords for SEO benefits"}),
+    metaDescription: z.string().optional(),
+    status: z.enum(['DRAFT', 'PUBLISHED'])
+})
+
+export default function Editor({ onSave, initialData }) {
     const { register, handleSubmit, setValue } = useForm();
     const [content, setContent] = useState("")
     const [ogImage, setOgImage] = useState("");
+    const router = useRouter()
 
     useEffect(() => {
         if (initialData) {
@@ -50,11 +63,37 @@ export default function Editor({onSave, initialData}) {
     ];
     const handleForm = (data) => {
         // console.log('data', data);
-        const generatedSlug = slugify(data.title);
-        onSave({...data, slug: generatedSlug, ogImage, content})
+        try {
+            const generatedSlug = initialData ? initialData.slug : slugify(data.title);
+            onSave({ ...data, slug: generatedSlug, ogImage, content })
+            toast({
+                title: "Success",
+                variant: 'success',
+                description: initialData ? "The Blog was updated successfully" : "Blog Post Created Successfully"
+            })
+
+            if (data.status === "PUBLISHED") router.push(`/blog/${generatedSlug}`)
+        } catch (error) {
+            console.error(error.message);
+        }
     }
     return <section>
-        <form className="space-y-4" onSubmit={handleSubmit(handleForm)}>
+        <form className="space-y-4" onSubmit={handleSubmit(async (data) => {
+            try {
+                await schema.parseAsync(data)
+                handleForm(data);
+            } catch (error) {
+                if (error instanceof ZodError) {
+                    error.issues.forEach(err => {
+                        toast({
+                            title: 'Error',
+                            description: err.message,
+                            variant: 'destructive'
+                        })
+                    });
+                }
+            }
+        })}>
             <input {...register('title')} placeholder="Enter the Post Title" className="font-bold bg-zinc-700 px-3 py-2 rounded-sm w-full outline-none" type="text" />
             <ReactQuill
                 value={content}
