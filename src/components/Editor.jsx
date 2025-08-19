@@ -1,17 +1,30 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"
 import { slugify } from "slugmaster";
 import ImageUpload from "./ImageUpload";
 import dynamic from "next/dynamic";
-
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"
 
-export default function Editor({onSave}) {
-    const { register, handleSubmit } = useForm();
+export default function Editor({onSave, initialData}) {
+    const { register, handleSubmit, setValue } = useForm();
     const [content, setContent] = useState("")
     const [ogImage, setOgImage] = useState("");
+
+    useEffect(() => {
+        if (initialData) {
+            setValue('title', initialData.title);
+            setContent(initialData.content)
+            setValue('excerpt', initialData.excerpt || '');
+            setValue('category', initialData.catslug || '');
+            setValue('keywords', initialData.keywords.join(', ') || '');
+            setValue('metaDescription', initialData.desc || '');
+            setValue('status', initialData.status || 'DRAFT');
+            setOgImage(initialData.thumbnail);
+        }
+    }, [initialData])
+
     const modules = {
         toolbar: [
             [{ header: [1, 2, 3, false] }],         // Headers
@@ -54,7 +67,7 @@ export default function Editor({onSave}) {
             <input {...register('excerpt')} placeholder="Enter a excerpt" className="font-bold bg-zinc-700 px-3 py-2 rounded-sm w-full outline-none" type="text" />
             <input {...register('category')} placeholder="Enter a category" className="font-bold bg-zinc-700 px-3 py-2 rounded-sm w-full outline-none" type="text" />
             <h2 className="text-xl">SEO Data</h2>
-            <ImageUpload returnImage={setOgImage} />
+            <ImageUpload returnImage={setOgImage} preLoadedImage={ogImage} />
             <input {...register('keywords')} placeholder="Enter the keywords" className="font-bold bg-zinc-700 px-3 py-2 rounded-sm w-full outline-none" type="text" />
             <input {...register('metaDescription')} placeholder="Enter Meta description" className="font-bold bg-zinc-700 px-3 py-2 rounded-sm w-full outline-none" type="text" />
             <div className="flex items-center justify-start gap-2">

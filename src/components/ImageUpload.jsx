@@ -2,7 +2,7 @@
 import { useState } from "react"
 // https://res.cloudinary.com/geekcms/image/upload/v1755449647/mxdwwqcowlw7kdtigoyx.jpg
 
-export default function ImageUpload({ returnImage }) {
+export default function ImageUpload({ returnImage, preLoadedImage }) {
     const [imageUrl, setImageUrl] = useState(null)
     const [loading, setLoading] = useState(false)
 
@@ -49,13 +49,13 @@ export default function ImageUpload({ returnImage }) {
     return (
         <section className="flex flex-col gap-4">
             <label className="bg-blue-900/10 p-2 border-dashed border-gray-700 rounded border-2 inline text-center cursor-pointer">
-                {loading ? "Uploading..." : "Upload Cover Page"}
+                {loading ? "Uploading..." : preLoadedImage ? "Update Cover Page" : "Upload Cover Page"}
                 <input type="file" onChange={handleImageAsFile} hidden />
             </label>
 
-            {imageUrl && (
+            {imageUrl || preLoadedImage && (
                 <img
-                    src={imageUrl}
+                    src={imageUrl || preLoadedImage}
                     alt="Uploaded preview"
                     className="w-40 h-40 object-cover rounded"
                 />
