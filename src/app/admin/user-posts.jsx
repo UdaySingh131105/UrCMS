@@ -3,9 +3,10 @@ import { getAllBlogs } from "../actions/getAllBlogs"
 import BlogCards from "./editableBlogCards"
 import { config } from "../static/config"
 import CategoryFilter from "@/components/category-filter"
+import { getUserBlogs } from "../actions/getUserBlogs"
 
-export default async function AdminAllPosts({page, category}) {
-    const {posts, count} = await getAllBlogs({page, category})
+export default async function UserAllPosts({page = 1, category, user}) {
+    const {posts, count} = await getUserBlogs({page, category, user: user.id})
     return <section className="flex flex-col p-5 gap-3">
         <h2 className="font-bold text-xl">Manage all Blogs Here</h2>
         <CategoryFilter  />
