@@ -51,7 +51,7 @@ const ModalComponet = ({user}) => {
             <DropdownMenuContent>
                 <DropdownMenuLabel>Hi, {user.name}!</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem><Link href={`/profile/${user.username}`}>Profile</Link></DropdownMenuItem>
+                <DropdownMenuItem><Link className="w-full" href={`/user/${user.username}`}>Profile</Link></DropdownMenuItem>
                 <DropdownMenuItem><SignOut /></DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

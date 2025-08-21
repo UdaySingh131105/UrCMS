@@ -12,7 +12,8 @@ export async function GET(request, { params }) {
             author: {
                 select: {
                     name: true,
-                    image: true
+                    image: true,
+                    username: true,
                 }
             }
         }

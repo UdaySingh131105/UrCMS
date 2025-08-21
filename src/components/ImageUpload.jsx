@@ -53,7 +53,7 @@ export default function ImageUpload({ returnImage, preLoadedImage }) {
                 <input type="file" onChange={handleImageAsFile} hidden />
             </label>
 
-            {imageUrl || preLoadedImage && (
+            {(imageUrl || preLoadedImage) && (
                 <img
                     src={imageUrl || preLoadedImage}
                     alt="Uploaded preview"

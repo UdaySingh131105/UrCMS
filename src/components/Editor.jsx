@@ -61,11 +61,11 @@ export default function Editor({ onSave, initialData }) {
         "image",
         "code-block",
     ];
-    const handleForm = (data) => {
+    const handleForm = async (data) => {
         // console.log('data', data);
         try {
             const generatedSlug = initialData ? initialData.slug : slugify(data.title);
-            onSave({ ...data, slug: generatedSlug, ogImage, content })
+            await onSave({ ...data, slug: generatedSlug, ogImage, content })
             toast({
                 title: "Success",
                 variant: 'success',
@@ -75,6 +75,11 @@ export default function Editor({ onSave, initialData }) {
             if (data.status === "PUBLISHED") router.push(`/blog/${generatedSlug}`)
         } catch (error) {
             console.error(error.message);
+            toast({
+                title: error.message,
+                variant: 'destructive',
+                description: 'Not able to create the post.' 
+            })
         }
     }
     return <section>

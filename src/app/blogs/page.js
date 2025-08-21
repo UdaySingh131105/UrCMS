@@ -23,14 +23,27 @@ const fetchAllBlogs = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/get`, {
         cache: "no-store"
     });
-    // console.log(res, " response from the post");
-    const data = await res.json();
-    // console.log(data, " data");
+
+    if (!res.ok) {
+        console.error("Failed to fetch blogs:", res.status, res.statusText);
+        return [];
+    }
+
+    let data;
+    try {
+        data = await res.json();
+    } catch (err) {
+        console.error("Error parsing JSON:", err);
+        return [];
+    }
+
     return data;
 }
 
+
 export default async function Blogs() {
     const blogData = await fetchAllBlogs();
+
     return (
         <section className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
             {

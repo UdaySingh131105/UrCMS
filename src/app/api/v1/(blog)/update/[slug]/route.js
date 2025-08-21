@@ -47,7 +47,7 @@ export async function PUT(request, { params }) {
             where: { slug },
             data: {
                 title,
-                excerpt,  
+                excerpt,
                 keywords: keywords ? keywords.split(",").map((kw) => kw.trim()) : [],
                 desc: metaDescription,
                 status,

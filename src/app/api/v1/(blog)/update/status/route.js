@@ -10,7 +10,7 @@ export async function PATCH(request) {
     if (!['DRAFT', 'PUBLISHED', 'ARCHIVED', 'DELETED'].includes(status)) {
         return NextResponse.json({ message: "Invalid Post Status" }, { status: 400 })
     }
-    
+
     const getPost = await prisma.post.findUnique({
         where: {
             id,
@@ -20,8 +20,8 @@ export async function PATCH(request) {
     const admin = isAdmin(session);
     const isAuthor = getPost.authorId == session.user.id
 
-    
-    if(admin || isAuthor) {
+
+    if (admin || isAuthor) {
         const updatedPost = await prisma.post.update({
             where: {
                 id,
@@ -30,8 +30,8 @@ export async function PATCH(request) {
                 status
             }
         })
-        return NextResponse.json(updatedPost, {status: 200})
+        return NextResponse.json(updatedPost, { status: 200 })
     }
-    
+
     return NextResponse.json({ message: "Unauthorized User" }, { status: 400 })
 }

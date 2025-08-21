@@ -4,7 +4,6 @@ import Editor from "@/components/Editor";
 export default function DraftPage() {
     const savePost = async ({ title, slug, excerpt, category, keywords, metaDescription, status, ogImage, content }) => {
         // BACKEND CALL
-        // console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/create`);
         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/create`, {
             method: "POST",
             headers: {
@@ -13,9 +12,7 @@ export default function DraftPage() {
             body: JSON.stringify({ title, slug, excerpt, category, keywords, metaDescription, status, ogImage, content })
         })
 
-        // console.log(res, " res");
-
-        if(!res.ok) throw Error("Post Saving Failed")
+        if(!res.ok) throw Error(data.message || "Unable to Save Post")
     }
     return (
         <div className="p-8">

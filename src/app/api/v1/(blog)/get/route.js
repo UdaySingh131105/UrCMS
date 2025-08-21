@@ -6,7 +6,6 @@ export async function GET() {
         where: {
             status: "PUBLISHED"
         }
-    });
-    // console.log(posts, " posts");
+    }); 
     return NextResponse.json(posts, {status: 200 })
 }

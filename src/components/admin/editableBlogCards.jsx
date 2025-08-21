@@ -1,7 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import DateFormat from "@/utils/dateFormat";
-import { Trash } from "lucide-react";
+import { Edit, Trash } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -63,6 +64,7 @@ export default function BlogCards({post}) {
             <div className="flex items-center justify-start gap-3">
                 {postStatus === "PUBLISHED" ? <Button variant="outline" onClick={() => {convertToDraft(post.id)}}>Convert to Draft</Button> : <Button onClick={() => {publishPost(post.id)}}>Publish</Button>}
                 {postStatus == "PUBLISHED" && <Button onClick={() => {router.push(`/blog/${post.slug}`)}}>View</Button>}
+                <Link href={`/draft/${post.slug}`}><Edit /></Link>
                 <Trash className="cursor-pointer" onClick={() => {handleDelete(post.id)}} />
             </div>
         </div>

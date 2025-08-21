@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 
-const ADMIN_EMAILS = ["admin@example.com", ""]; // predefined admin emails
+const ADMIN_EMAILS = ["admin@example.com", "udaysingh131105@gmail.com"]; // predefined admin emails
 
 /**
  * Checks if the current session user is an admin.

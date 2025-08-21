@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
     const session = await getAuthSession();
-    if (!session || !session.user) return NextResponse.json({ message: "unauthorized User", status: 401 })
+    if (!session || !session.user) return NextResponse.json({ message: "Unauthorized User" }, { status: 401 })
 
     const body = await request.json();
     const { title, slug, excerpt, category, keywords, metaDescription, status, ogImage, content } = body;
 
     if (!title || !content || !slug || !category || !session.user.id) {
-        return NextResponse.json({ message: "Missing Fields", status: 402 })
+        return NextResponse.json({ message: "Missing Fields" }, { status: 402 })
     }
 
     const postStatus = status || "DRAFT";
@@ -42,9 +42,9 @@ export async function POST(request) {
                 status: postStatus,
             },
         })
-        return NextResponse.json(newPost, { message: "ok", status: 201 })
+        return NextResponse.json(newPost, { message: "ok" }, { status: 201 })
     } catch (error) {
         console.log(error.message);
-        return NextResponse.json({ message: "Could Not Save Post", status: 500 })
+        return NextResponse.json({ message: "Could Not Save Post" }, { status: 500 })
     }
 }
