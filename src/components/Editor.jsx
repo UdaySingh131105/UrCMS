@@ -1,20 +1,34 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form"
 import { slugify } from "slugmaster";
 import ImageUpload from "./ImageUpload";
 import dynamic from "next/dynamic";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { z, ZodError } from 'zod'
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Button } from "./ui/button";
+import AIContent from "@/utils/aiContent";
+
+const ReactQuill = dynamic(import("react-quill"), { ssr: false })
 
 const schema = z.object({
     title: z.string().min(1, { message: "Title must not be empty" }).min(10, { message: "Title must contain at least 10 characters" }),
     excerpt: z.string().min(10, { message: 'Please add some details in the excerpt' }),
-    category: z.string().min(1, {message: 'please add a category'}),
-    keywords: z.string().min(2, {message: "Please add keywords for SEO benefits"}),
+    category: z.string().min(1, { message: 'please add a category' }),
+    keywords: z.string().min(2, { message: "Please add keywords for SEO benefits" }),
     metaDescription: z.string().optional(),
     status: z.enum(['DRAFT', 'PUBLISHED'])
 })
@@ -24,6 +38,8 @@ export default function Editor({ onSave, initialData }) {
     const [content, setContent] = useState("")
     const [ogImage, setOgImage] = useState("");
     const router = useRouter()
+    const ideaRef = useRef(null)
+    const closeDialogRef = useRef(null)
 
     useEffect(() => {
         if (initialData) {
@@ -61,6 +77,7 @@ export default function Editor({ onSave, initialData }) {
         "image",
         "code-block",
     ];
+
     const handleForm = async (data) => {
         // console.log('data', data);
         try {
@@ -78,10 +95,26 @@ export default function Editor({ onSave, initialData }) {
             toast({
                 title: error.message,
                 variant: 'destructive',
-                description: 'Not able to create the post.' 
+                description: 'Not able to create the post.'
             })
         }
     }
+
+    const generateContentWithAI = async () => {
+        try {
+            const response = await AIContent({ text: ideaRef.current.value, customInstructions: "Generate Content with Proper Facts", contentGen: true })
+            setContent(response)
+        } catch (error) {
+            console.log(error)
+            toast({
+                title: error.message,
+                variant: 'destructive'
+            })
+        } finally {
+            closeDialogRef.current?.click();
+        }
+    }
+
     return <section>
         <form className="space-y-4" onSubmit={handleSubmit(async (data) => {
             try {
@@ -107,7 +140,24 @@ export default function Editor({ onSave, initialData }) {
                 formats={formats}
                 theme="snow"
             />
+            <Dialog>
+                <DialogTrigger>Generate content using AI</DialogTrigger>
+                <DialogContent>
+                    <DialogHeader>
 
+                        <DialogDescription>
+                            Give a brief on the content you wish to generate.
+                        </DialogDescription>
+                        <textarea ref={ideaRef} rows={7} className="bg-zinc-500/10 outline-none p-1 rounded" />
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button onClick={generateContentWithAI}>Generate</Button>
+                        <DialogClose ref={closeDialogRef} asChild>
+                            <Button variant='ghost'>Close</Button>
+                        </DialogClose>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
             <input {...register('excerpt')} placeholder="Enter a excerpt" className="font-bold bg-zinc-700 px-3 py-2 rounded-sm w-full outline-none" type="text" />
             <input {...register('category')} placeholder="Enter a category" className="font-bold bg-zinc-700 px-3 py-2 rounded-sm w-full outline-none" type="text" />
             <h2 className="text-xl">SEO Data</h2>

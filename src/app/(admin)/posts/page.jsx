@@ -13,7 +13,7 @@ export default async function AllPosts({ searchParams }) {
     const session = await getServerSession(authOptions);
 
     if (!session) {
-        redirect("/api/auth/signin");
+        redirect("/unauthorized");
     }
 
     const admin = await isAdmin(session);

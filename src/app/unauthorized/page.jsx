@@ -7,8 +7,8 @@ export default function UnauthorizedPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.push("/signin"); // Redirect to signin page
-    }, 3000); // 3 seconds
+      router.push("/api/auth/signin"); // Redirect to signin page
+    }, 2000); // 3 seconds
 
     return () => clearTimeout(timer);
   }, [router]);
@@ -17,7 +17,6 @@ export default function UnauthorizedPage() {
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-3xl font-bold text-red-600">Unauthorized</h1>
       <p className="text-lg mt-2">You don’t have access to this page.</p>
-      <p className="text-sm mt-1">Redirecting to signin in 3 seconds...</p>
     </div>
   );
 }
