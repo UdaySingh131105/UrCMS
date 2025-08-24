@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "./ui/button";
 import AIContent from "@/utils/aiContent";
+import { Sparkles } from "lucide-react";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
@@ -141,7 +142,7 @@ export default function Editor({ onSave, initialData }) {
                 theme="snow"
             />
             <Dialog>
-                <DialogTrigger>Generate content using AI</DialogTrigger>
+                <DialogTrigger className="flex gap-2 items-center border p-2 rounded-sm">Generate content using AI <Sparkles size={20} /></DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
 
