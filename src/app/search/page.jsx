@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function SearchPage() {
     const [query, setQuery] = useState('')
@@ -11,7 +11,7 @@ export default function SearchPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("")
 
-    const fetchPost = async () => {
+    const fetchPost = useCallback(async () => {
         try {
             setLoading(true)
             const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/search?query=${encodeURI(query)}`)
@@ -39,7 +39,7 @@ export default function SearchPage() {
         } finally {
             setLoading(false)
         }
-    }
+    })
 
     useEffect(() => {
         if (query) {

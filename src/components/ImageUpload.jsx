@@ -1,6 +1,6 @@
 "use client"
+import Image from "next/image"
 import { useState } from "react"
-// https://res.cloudinary.com/geekcms/image/upload/v1755449647/mxdwwqcowlw7kdtigoyx.jpg
 
 export default function ImageUpload({ returnImage, preLoadedImage }) {
     const [imageUrl, setImageUrl] = useState(null)
@@ -54,7 +54,7 @@ export default function ImageUpload({ returnImage, preLoadedImage }) {
             </label>
 
             {(imageUrl || preLoadedImage) && (
-                <img
+                <Image
                     src={imageUrl || preLoadedImage}
                     alt="Uploaded preview"
                     className="w-40 h-40 object-cover rounded"

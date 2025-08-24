@@ -1,23 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-/**
- * {
-    id: '68a21c3794ba3591ad199c3c',
-    title: 'react vs nextjs',
-    slug: 'react-vs-nextjs',
-    content: '<p>demo content for react vs nextjs</p>',
-    thumbnail: 'https://res.cloudinary.com/geekcms/image/upload/v1755454195/fobmuinzqjybmexn8amt.png',
-    desc: 'find you development framework',
-    keywords: [],
-    excerpt: 'demo excerpt',
-    authorId: '68a0d76d360752ba53d684ae',
-    catslug: 'Coding',
-    createdAt: '2025-08-17T18:15:19.923Z',
-    status: 'PUBLISHED'
-  }
- * @returns 
- */
 
 const fetchAllBlogs = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/get`, {
@@ -49,7 +32,7 @@ export default async function Blogs() {
             {
                 blogData.map((blog, index) => {
                     return (
-                        <BlogCard title={blog.title} excerpt={blog.excerpt} image={blog.thumbnail} link={blog.slug} />
+                        <BlogCard key={`${blog.slug}_index`} title={blog.title} excerpt={blog.excerpt} image={blog.thumbnail} link={blog.slug} />
                     )
                 })
             }
