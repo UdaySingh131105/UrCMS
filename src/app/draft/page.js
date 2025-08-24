@@ -12,7 +12,9 @@ export default function DraftPage() {
             body: JSON.stringify({ title, slug, excerpt, category, keywords, metaDescription, status, ogImage, content })
         })
 
-        if(!res.ok) throw Error(data.message || "Unable to Save Post")
+        const data = await res.json();
+
+        if (!res.ok) throw Error(data.message || "Unable to Save Post")
     }
     return (
         <div className="p-8">
