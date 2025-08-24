@@ -52,14 +52,14 @@ export default function AuthForm({ origin }) {
 
     return <div className="w-full sm:w-1/2 md:w-[40%] lg:w-[50%] mx-4 p-4 flex justify-center items-center gap-4 flex-col rounded-lg bg-zinc-500/10">
         <CloudLightning className="size-20 text-gray-400" />
-        {origin === 'signup' ? 
-        <p className="text-center text-gray-400 text-center">Welcome, by continuing with GeekCMS signin you will be a Geek!</p> :
-        <p className="text-center text-gray-400 text-center">Welcome back! Glad to have you back</p>
+        {origin === 'signup' ?
+            <p className="text-center text-gray-400 text-center">Welcome, by continuing with UrCMS signin you will be a Geek!</p> :
+            <p className="text-center text-gray-400 text-center">Welcome back! Glad to have you back</p>
         }
         <button onClick={onSignin} className="hover:bg-gray-300 hover:text-black transition-all delay-75 flex justify-center items-center gap-2 p-2 px-4 font-bold border bg-gray-500/10 rounded-md"><Icons.GithubLogo className="size-7" />{loading ? 'Loading...' : origin === 'signup' ? 'Sign Up' : "Sign In"}</button>
         {origin === 'signup' ?
             <p className="text-gray-500 text-sm text-center">Aready have an Account? <Link className="underline" href={'/signin'}>Sign up</Link></p> :
-            <p className="text-gray-500 text-sm text-center">New to GeekCMS? <Link className="underline" href={'/signup'}>Sign up</Link></p>
+            <p className="text-gray-500 text-sm text-center">New to UrCMS? <Link className="underline" href={'/signup'}>Sign up</Link></p>
         }
     </div>
 }

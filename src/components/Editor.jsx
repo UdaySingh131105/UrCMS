@@ -22,7 +22,7 @@ import {
 import { Button } from "./ui/button";
 import AIContent from "@/utils/aiContent";
 
-const ReactQuill = dynamic(import("react-quill"), { ssr: false })
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
 const schema = z.object({
     title: z.string().min(1, { message: "Title must not be empty" }).min(10, { message: "Title must contain at least 10 characters" }),

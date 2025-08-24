@@ -21,29 +21,30 @@ export default function Landing() {
       </section>
 
       <section className="min-h-screen sm:min-h-[50vh] bg-gray-600/10 w-full flex justify-center items-center px-3">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4">
-          <span className="flex flex-col justify-center items-center gap-2">
-            <Pencil size={50} />
-            <h3 className="text-xl font-bold text-gray-300">Intutive Edittor</h3>
-            <p className="text-gray-400 text-center">Create and edit in a User Frinedly Interface</p>
-          </span>
-          <span className="flex flex-col justify-center items-center gap-2">
-            <Layers size={50} />
-            <h3 className="text-xl font-bold text-gray-300">Intutive Edittor</h3>
-            <p className="text-gray-400 text-center">Create and edit in a User Frinedly Interface</p>
-          </span>
-          <span className="flex flex-col justify-center items-center gap-2">
-            <Zap size={50} />
-            <h3 className="text-xl font-bold text-gray-300">Intutive Edittor</h3>
-            <p className="text-gray-400 text-center">Create and edit in a User Frinedly Interface</p>
-          </span>
-          <span className="flex flex-col justify-center items-center gap-2">
-            <Icons.BlogCustomItem className="w-16 h-16 text-white" />
-            <h3 className="text-xl font-bold text-gray-300">Intutive Edittor</h3>
-            <p className="text-gray-400 text-center">Create and edit in a User Frinedly Interface</p>
-          </span>
-        </ div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 max-w-6xl">
+          <div className="flex flex-col justify-center items-center gap-3 p-6 rounded-xl bg-white/5 hover:bg-white/10 transition">
+            <Pencil size={50} className="text-blue-400" />
+            <h3 className="text-xl text-center font-bold text-gray-200">Intuitive Editor</h3>
+            <p className="text-gray-400 text-sm text-center">Write, edit, and format your content effortlessly.</p>
+          </div>
+          <div className="flex flex-col justify-center items-center gap-3 p-6 rounded-xl bg-white/5 hover:bg-white/10 transition">
+            <Layers size={50} className="text-green-400" />
+            <h3 className="text-xl text-center font-bold text-gray-200">Content Organization</h3>
+            <p className="text-gray-400 text-sm text-center">Manage posts, pages, and assets with ease.</p>
+          </div>
+          <div className="flex flex-col justify-center items-center gap-3 p-6 rounded-xl bg-white/5 hover:bg-white/10 transition">
+            <Zap size={50} className="text-yellow-400" />
+            <h3 className="text-xl text-center font-bold text-gray-200">Blazing Fast Publishing</h3>
+            <p className="text-gray-400 text-sm text-center">Publish content instantly with optimized performance.</p>
+          </div>
+          <div className="flex flex-col justify-center items-center gap-3 p-6 rounded-xl bg-white/5 hover:bg-white/10 transition">
+            <Icons.BlogCustomItem className="w-16 h-16 text-purple-400" />
+            <h3 className="text-xl text-center font-bold text-gray-200">Secure & Reliable</h3>
+            <p className="text-gray-400 text-sm text-center">Your data stays safe with built-in authentication & protection.</p>
+          </div>
+        </div>
       </section>
+
       <section className="flex flex-col items-center justify-center gap-4 p-4">
         <div className="min-h-[50vh] flex flex-col items-start justify-center gap-3 w-[50vw]">
           <h4 className="font-bold text-2xl">
