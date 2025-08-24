@@ -4,8 +4,7 @@ import { rateLimit } from "@/lib/rate-limit"; // path to the ratelimit setup fil
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://yourdomain.com",
-  "https://another-allowed-domain.com"
+  "https://ur-cms.vercel.app"
 ];
 
 export async function middleware(req) {
