@@ -11,6 +11,13 @@ export default function UpdatePost({params}) {
         const fetchPost = async () => {
             const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/update/${slug}`)
             if(!res.ok) {
+                if(res.status === 401) {
+                    toast({
+                        title: 'Error',
+                        variant: 'destructive',
+                        desciption: 'User Not Logged In'
+                    })
+                }
                 if(res.status === 403) {
                     toast({
                         title: 'Error',

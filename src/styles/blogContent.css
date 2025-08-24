@@ -1,6 +1,22 @@
 .blogContent {
   line-height: 1.7;
   font-size: 1rem;
+  color: var(--foreground); /* default text color */
+}
+
+/* Headings */
+.blogContent h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 1.5rem 0 1rem;
+}
+
+.blogContent h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.75rem;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 4px;
 }
 
 .blogContent h3 {
@@ -8,20 +24,106 @@
   font-weight: 600;
   padding: 6px 0 6px 8px;
   margin: 15px 0 8px;
-  border-left: 3px solid var(--primary); /* adds a nice accent */
+  border-left: 3px solid var(--primary);
 }
 
+.blogContent h4,
+.blogContent h5,
+.blogContent h6 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 1rem 0 0.5rem;
+}
+
+/* Paragraph */
 .blogContent p {
   color: var(--muted);
   margin-bottom: 1rem;
 }
 
+/* Links */
+.blogContent a {
+  color: var(--primary);
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.blogContent a:hover {
+  color: var(--primary-hover, darkblue);
+}
+
+/* Lists */
 .blogContent ul {
   list-style-type: disc;
-  margin: 0 0 1rem 1.5rem; /* spacing & indentation */
+  margin: 0 0 1rem 1.5rem;
+}
+
+.blogContent ol {
+  list-style-type: decimal;
+  margin: 0 0 1rem 1.5rem;
 }
 
 .blogContent li {
   margin-bottom: 0.5rem;
   color: var(--muted);
+}
+
+/* Blockquote */
+.blogContent blockquote {
+  border-left: 4px solid var(--primary);
+  background: var(--secondary-bg, #f9f9f9);
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* Code & Pre */
+.blogContent pre {
+  background: var(--secondary-bg, #f5f5f5);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.blogContent code {
+  background: var(--secondary-bg, #f5f5f5);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+/* Images */
+.blogContent img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
+/* Horizontal Rule */
+.blogContent hr {
+  border: none;
+  border-top: 1px solid var(--border, #ddd);
+  margin: 2rem 0;
+}
+
+/* Tables */
+.blogContent table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.blogContent th,
+.blogContent td {
+  border: 1px solid var(--border, #ddd);
+  padding: 0.6rem;
+  text-align: left;
+}
+
+.blogContent th {
+  background: var(--secondary-bg, #f9f9f9);
+  font-weight: 600;
 }
